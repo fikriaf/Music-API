@@ -10,7 +10,7 @@ const HOST = "localhost";
 
 
 // Sebelum routes
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 const audioPath = path.join(__dirname, "../public/audio");
 app.use("/audio", express.static(audioPath));
