@@ -6,14 +6,8 @@ import cors from "cors";
 
 const app = express();
 
-app.use(cors({
-  origin: (origin, callback) => {
-    callback(null, true); // Izinkan semua origin termasuk localhost
-  },
-  methods: ["GET", "HEAD", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
-
+// Sebelum routes
+app.use(cors({ origin: "*" }));
 
 const audioPath = path.join(__dirname, "../public/audio");
 app.use("/audio", express.static(audioPath));
