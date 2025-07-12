@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "prebuild": "chmod +x ./node_modules/.bin/tsc",
     "dev": "ts-node src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
