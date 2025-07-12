@@ -5,9 +5,6 @@ import { parseStream } from "music-metadata";
 import cors from "cors";
 
 const app = express();
-const PORT = 4000;
-const HOST = "localhost";
-
 
 // Sebelum routes
 app.use(cors({ origin: "*" }));
@@ -51,6 +48,7 @@ app.get("/api/music", async (req, res) => {
   res.json(musicList);
 });
 
-app.listen(PORT, () => {
-  console.log(`🎧 Music API jalan di http://${HOST}:${PORT}`);
+app.listen(process.env.PORT || 4000, () => {
+  console.log(`🎧 Music API jalan`);
 });
+
