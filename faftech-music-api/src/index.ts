@@ -7,9 +7,11 @@ import cors from "cors";
 const app = express();
 
 app.use(cors({
-  origin: ["http://localhost:3000"],
-  methods: ["GET"],
-  allowedHeaders: ["Content-Type"],
+  origin: (origin, callback) => {
+    callback(null, true); // Izinkan semua origin termasuk localhost
+  },
+  methods: ["GET", "HEAD", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 
