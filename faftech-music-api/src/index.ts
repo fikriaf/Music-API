@@ -6,8 +6,12 @@ import cors from "cors";
 
 const app = express();
 
-// Sebelum routes
-app.use(cors({ origin: "*" }));
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  methods: ["GET"],
+  allowedHeaders: ["Content-Type"],
+}));
+
 
 const audioPath = path.join(__dirname, "../public/audio");
 app.use("/audio", express.static(audioPath));
