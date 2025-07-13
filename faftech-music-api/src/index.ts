@@ -13,7 +13,10 @@ const HOST = "localhost";
 app.use(cors({ origin: "*" }));
 
 const audioPath = path.join(__dirname, "../public/audio");
-app.use("/audio", express.static(audioPath));
+app.use("/audio", (req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+}, express.static(audioPath));
 
 function capitalizeWords(str: string) {
   return str.replace(/\b\w/g, c => c.toUpperCase());
