@@ -1,5 +1,7 @@
 import fs from "fs";
 import path from "path";
+import multer from "multer";
+import type { Request, Response } from "express";
 import express from "express";
 import { parseStream } from "music-metadata";
 import cors from "cors";
@@ -14,6 +16,25 @@ app.use(cors({ origin: "*" }));
 
 const audioPath = path.join(__dirname, "../public/audio");
 app.use("/audio", express.static(audioPath));
+
+
+// Middleware untuk upload .mp3 saja
+const storage = multer.diskStorage({
+  destination: (req: any, file: any, cb: any) => {
+    cb(null, audioPath);
+  },
+  filename: (req: any, file: any, cb: any) => {
+    cb(null, file.originalname); // pakai nama asli
+  }
+});
+const upload = multer({
+  storage,
+  fileFilter: (req: any, file: any, cb: any) => {
+    const isMp3 = file.mimetype === "audio/mpeg";
+    cb(null, isMp3);
+  }
+});
+
 
 function capitalizeWords(str: string) {
   return str.replace(/\b\w/g, c => c.toUpperCase());
@@ -49,6 +70,15 @@ app.get("/api/music", async (req, res) => {
   );
 
   res.json(musicList);
+});
+
+// POST untuk upload mp3
+app.post("/api/upload", upload.single("file"), (req: any, res: any) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "File tidak ditemukan" });
+  }
+
+  res.json({ message: "Upload berhasil", file: req.file.filename });
 });
 
 app.listen(PORT, () => {

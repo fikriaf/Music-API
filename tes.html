@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload MP3</title>
+</head>
+<body>
+  <h2>Upload MP3 File</h2>
+
+  <form id="uploadForm">
+    <input type="file" id="mp3Input" accept=".mp3" required />
+    <button type="submit">Upload</button>
+  </form>
+
+  <p id="status"></p>
+
+  <script>
+    document.getElementById("uploadForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const fileInput = document.getElementById("mp3Input");
+      const file = fileInput.files[0];
+
+      if (!file || !file.name.endsWith(".mp3")) {
+        document.getElementById("status").textContent = "❌ Pilih file .mp3 terlebih dahulu!";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await fetch("http://localhost:4000/api/upload", {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          document.getElementById("status").textContent = `✅ Upload berhasil: ${result.file}`;
+        } else {
+          document.getElementById("status").textContent = `❌ Upload gagal: ${result.error}`;
+        }
+      } catch (err) {
+        document.getElementById("status").textContent = "❌ Terjadi kesalahan saat upload.";
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
