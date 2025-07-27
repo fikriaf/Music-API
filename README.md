@@ -1,4 +1,11 @@
 # 🎧 Faftech Music API
+<p align="left">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js" />
+  <img src="https://img.shields.io/badge/Multer-ff4444?style=for-the-badge" alt="Multer" />
+  <img src="https://img.shields.io/badge/music--metadata-blue?style=for-the-badge" alt="music-metadata" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+</p>
 
 Faftech Music API is a lightweight Node.js + Express application designed to serve and upload `.mp3` audio files, complete with metadata duration extraction. It exposes two key endpoints: one for retrieving a list of available music files, and another for uploading new files.
 
